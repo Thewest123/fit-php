@@ -1,0 +1,13 @@
+{
+    "name": "jirkovoj/scraper",
+    "require": {
+        "ext-dom": "*",
+        "fabpot/goutte": "^3.2"
+    },
+    "authors": [
+        {
+            "name": "Vojtěch Jirkovský",
+            "email": "vojta.j@gmail.com"
+        }
+    ]
+}
