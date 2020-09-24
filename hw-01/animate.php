@@ -3,7 +3,7 @@
 require_once './game.php';
 
 if (count($argv) !== 2) {
-    echo "Usage: php main.php <input>\n";
+    echo "Usage: php animate.php <input>\n";
     exit(1);
 }
 

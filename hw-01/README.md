@@ -23,6 +23,8 @@ Poslední je funkce `gameStep`, která dostane na vstup matici buněk a vrátí 
 3. Každá živá buňka s více než třemi živými sousedy zemře
 4. Každá mrtvá buňka s právě třemi živými sousedy ožije
 
+Za sousedy považujte všech 8 okolních buněk, tj. včetně těch, které sousedí "šikmo".
+
 Funkce ponechte se stejnou anotací, můžete vytvořit další pomocné funkce podle potřeby.
 
 
