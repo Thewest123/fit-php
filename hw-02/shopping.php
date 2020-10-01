@@ -17,7 +17,7 @@ if (count($argv) !== 2) {
 	exit(1);
 }
 $input = file_get_contents(end($argv));
-$list = explode("\n", $input);
+$list = explode(PHP_EOL, $input);
 $list = sortList($list);
 print_r($list);
-print_r(sumList($list));
+print_r(sumList($list) . PHP_EOL);
