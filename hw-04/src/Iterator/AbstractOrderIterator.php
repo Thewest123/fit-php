@@ -8,36 +8,35 @@ abstract class AbstractOrderIterator implements \Iterator
 {
     // TODO: shared attributes?
 
-    /**
-     * AbstractOrderIterator constructor.
-     *
-     * @param Node $root
-     */
     public function __construct(Node $root)
     {
+        // TODO: Implement constructor.
     }
 
-    public function current()
+    public function current(): ?Node
     {
         // TODO: Implement current() method.
     }
 
-    public function next()
+    public function next(): void
     {
         // TODO: Implement next() method.
     }
 
+    /**
+     * @return bool|float|int|string|null
+     */
     public function key()
     {
         // TODO: Implement key() method.
     }
 
-    public function valid()
+    public function valid(): bool
     {
         // TODO: Implement valid() method.
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         // TODO: Implement rewind() method.
     }
