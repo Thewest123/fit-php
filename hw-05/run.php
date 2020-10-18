@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 use App\Builder;
 use App\Renderer;
@@ -23,4 +23,4 @@ $invoice = $builder
     ->addItem('Sluzby', 1, 98100.57)
     ->build();
 
-echo (new Renderer)->render($invoice);
+echo (new Renderer)->makeInvoice($invoice);

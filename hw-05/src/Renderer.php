@@ -1,17 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace App;
 
 
-use Fpdf\Fpdf;
+use Dompdf\Dompdf;
 
-class Renderer extends Fpdf
+class Renderer extends Dompdf
 {
-    public function render(Invoice $invoice)
+    public function makeInvoice(Invoice $invoice): string
     {
         // TODO implement
-
-        return $this->Output();
     }
 }

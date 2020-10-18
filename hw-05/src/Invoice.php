@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace App;
@@ -89,7 +89,7 @@ class Invoice
      * @param Item $item
      * @return Invoice
      */
-    public function addItem(Item $item)
+    public function addItem(Item $item): self
     {
         $this->items[] = $item;
 
