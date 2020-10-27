@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Model;
 
@@ -23,7 +23,7 @@ class Transaction
      *
      * @param Account $from
      * @param Account $to
-     * @param float   $amount
+     * @param float $amount
      */
     public function __construct(Account $from, Account $to, float $amount)
     {

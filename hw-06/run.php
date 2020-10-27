@@ -23,7 +23,7 @@ function init()
 
 function import(string $filename)
 {
-    $data = explode("\n", file_get_contents($filename));
+    $data = explode(PHP_EOL, file_get_contents($filename));
     foreach ($data as $row) {
         $col = explode(' ', $row);
         if (count($col) !== 5) {
@@ -41,9 +41,9 @@ function summary(string $number, string $code)
     $account = Account::find($number, $code);
     /** @var Transaction $transaction */
     foreach ($account->getTransactions() as $transaction) {
-        printf("%s\t->\t%s\tCZK %.2f\n", $transaction->getFrom(), $transaction->getTo(), $transaction->getAmount());
+        printf("%s\t->\t%s\tCZK %.2f" . PHP_EOL, $transaction->getFrom(), $transaction->getTo(), $transaction->getAmount());
     }
-    printf("SUMMARY:\t\t\t\tCZK %.2f\n\n", $account->getTransactionSum());
+    printf("SUMMARY:\t\t\t\tCZK %.2f" . PHP_EOL . PHP_EOL, $account->getTransactionSum());
 }
 
 // init
@@ -73,4 +73,5 @@ echo <<<USAGE
       - init
       - import <filename>
       - summary <number> <code>
+
 USAGE;

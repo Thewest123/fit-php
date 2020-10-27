@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Model;
 
@@ -18,7 +18,7 @@ class Account
     /**
      * Account constructor.
      *
-     * @param int    $id
+     * @param int $id
      * @param string $number
      * @param string $code
      */
@@ -61,6 +61,17 @@ class Account
     }
 
     /**
+     * Find account record by id
+     * 
+     * @param int $id
+     * @return static|null
+     */
+    public static function findById(int $id): ?self
+    {
+        // TODO implement
+    }
+
+    /**
      * Inserts new account record and returns its instance; or returns existing account instance
      *
      * @param string $number
@@ -73,17 +84,17 @@ class Account
     }
 
     /**
-     * Returns array of Transaction instances related to this Account, consider both transaction direction
+     * Returns iterable of Transaction instances related to this Account, consider both transaction direction
      *
-     * @return Transaction[]|array
+     * @return iterable<Transaction>
      */
-    public function getTransactions(): array
+    public function getTransactions(): iterable
     {
         // TODO implement
     }
 
     /**
-     * Returns transaction sum (using SQL aggregate function)
+     * Returns transaction sum (using SQL aggregate function). Treat outgoing transactions as 'minus' and incoming as 'plus'.
      *
      * @return float
      */
