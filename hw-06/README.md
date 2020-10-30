@@ -31,7 +31,7 @@ cislo_uctu kod_banky cislo_uctu kod_banky castka
 
 1. statickou metodu `Account::find` - která vrátí (vytvoří) instanci `Account` pro odpovídající řádek  z databázové tabulky. V případě nenalezení řádku vrátí `null`.
 
-1. statickou metodu `Account::findById` - která vrátí (vytvoří) instanci `Account` pro odpovídající primírní klíč (id) z dataábzové tabulky. V případě nenalezení řádku vrátí `null`.
+1. statickou metodu `Account::findById` - která vrátí (vytvoří) instanci `Account` pro odpovídající primírní klíč (id) z databázové tabulky. V případě nenalezení řádku vrátí `null`.
 
 1. statickou metodu `Account::findOrCreate` - která vrátí (vytvoří) instanci podle existujícího řádku nebo podle nově vloženého.
 
