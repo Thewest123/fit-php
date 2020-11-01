@@ -14,7 +14,7 @@ Soubor `template.pdf` ukazuje, jak by výsledná faktura měla vypadat. Vaším 
 
 Bodové hodnocení jednotlivých částí je následující:
 
-- Nainstalování knihovny FPDF a vyprodukování PDF souboru, který jde otevřít **[1 bod]**
+- Nainstalování knihovny DomPDF a vyprodukování PDF souboru, který jde otevřít **[1 bod]**
 - Faktura obsahuje všechna požadovaná data **[2.5 bodu]**
 - Vzhled faktury:
 	- Dodavatel a odběratel s příslušným formátováním (telefonní číslo a email se zobrazí pouze pokud jsou nastavené) **[1,5 bodu]**
