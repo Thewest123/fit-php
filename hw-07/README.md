@@ -18,16 +18,16 @@ Metody pro vkládání prvků ve třídě `LinkedList` mohou obsahovat chyby. Ve
 
 ## Instrukce
 
-Napište testy, které ověří funkcionalitu ve všech případech, tak aby code coverage bylo 100%. Ke spuštění testů můžete využít přiložený Makefile:
+Napište testy, které ověří funkcionalitu ve všech případech, tak aby code coverage bylo 100%. Ke spuštění testů můžete využít připravené composer scripty:
 
 ```
-$ make test
+$ composer test
 ```
 
 Pro zjištění code coverage můžete použít:
 
 ```
-$ make coverage
+$ composer coverage
 ```
 
 Vytvoří se složka `coverage`, ve které naleznete HTML report. Pro spuštění phpunit s code coverage je potřeba mít v PHP extension [xdebug](https://xdebug.org/docs/install).
