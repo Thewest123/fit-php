@@ -29,5 +29,6 @@ Pro zjištění code coverage můžete použít:
 ```
 $ composer coverage
 ```
-
 Vytvoří se složka `coverage`, ve které naleznete HTML report. Pro spuštění phpunit s code coverage je potřeba mít v PHP extension [xdebug](https://xdebug.org/docs/install).
+
+Report pokrytí kódu testy musí pro plný zisk bodů být 100%.
