@@ -2,7 +2,7 @@
     "name": "jirkovoj/scraper",
     "require": {
         "ext-dom": "*",
-        "fabpot/goutte": "^3.2"
+        "fabpot/goutte": "^4.0"
     },
     "authors": [
         {
