@@ -5,7 +5,7 @@ Vaším úkolem je vytvořit scraper produktů z e-shopů. Vyberte si alespoň d
 - Pro každý produkt zjistěte: 
   - název,
   - cenu,
-  - popis (může být na stránce s detailem) a
+  - popis (musí být ze stránky s detailem) a
   - odkaz na produkt (detail)
 - Pokuste se ze seznamu produktů odstranit irrelevantní položky
 ![](produkty.png)
