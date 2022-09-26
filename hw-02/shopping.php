@@ -1,22 +1,29 @@
 <?php declare(strict_types=1);
 
-function getPrice($item) {
-	// TODO
+function getPrice(string $item): float {
+    // TODO
 }
 
-function sortList($list) {
-	// TODO
+/**
+ * @param string[] $list
+ * @return string[]
+ */
+function sortList(array $list): array {
+    // TODO
 }
 
-function sumList($list) {
-	// TODO
+/**
+ * @param string[] $list
+ */
+function sumList(array $list): float {
+    // TODO
 }
 
 if (count($argv) !== 2) {
-	echo "Usage: php shopping.php <input>\n";
+	echo "Usage: php shopping.php <input>" . PHP_EOL;
 	exit(1);
 }
-$input = file_get_contents(end($argv));
+$input = trim(file_get_contents(end($argv)));
 $list = explode(PHP_EOL, $input);
 $list = sortList($list);
 print_r($list);
