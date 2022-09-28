@@ -31,10 +31,10 @@ function priceCompare(string $a, string $b): int
     $priceA = getPrice($a);
     $priceB = getPrice($b);
 
-    if ($priceA < $priceB)
+    if ($priceA > $priceB)
         $result = 1;
 
-    else if ($priceA > $priceB)
+    else if ($priceA < $priceB)
         $result = -1;
 
     return $result;
