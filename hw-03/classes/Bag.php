@@ -1,31 +1,38 @@
-<?php
+<?php declare (strict_types=1);
 
 class Bag {
-    public function add($item) {
+    public function add(mixed $item): void
+    {
         // TODO
     }
 
-    public function clear() {
+    public function clear(): void
+    {
         // TODO
     }
 
-    public function contains($item) {
+    public function contains(mixed $item): bool
+    {
         // TODO
     }
 
-    public function elementSize($item) {
+    public function elementSize(mixed $item): int
+    {
         // TODO
     }
 
-    public function isEmpty() {
+    public function isEmpty(): bool
+    {
         // TODO
     }
 
-    public function remove($item) {
+    public function remove(mixed $item): void
+    {
         // TODO
     }
 
-    public function size() {
+    public function size(): int
+    {
         // TODO
     }
 }
