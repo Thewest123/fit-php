@@ -1,38 +1,59 @@
 <?php declare (strict_types=1);
 
 class Bag {
+
+    private array $items = [];
+
     public function add(mixed $item): void
     {
-        // TODO
+        $this->items[] = $item;
     }
 
     public function clear(): void
     {
-        // TODO
+        $this->items = [];
     }
 
     public function contains(mixed $item): bool
     {
-        // TODO
+        $doesContain = false;
+
+        foreach ($this->items as $existingItem)
+        {
+            if ($existingItem === $item)
+            {
+                $doesContain = true;
+                break;
+            }
+        }
+
+        return $doesContain;
     }
 
     public function elementSize(mixed $item): int
     {
-        // TODO
+        $count = array_count_values($this->items);
+        return $count[$item] ?? 0;
     }
 
     public function isEmpty(): bool
     {
-        // TODO
+        return $this->size() === 0;
     }
 
     public function remove(mixed $item): void
     {
-        // TODO
+        foreach ($this->items as $index => $existingItem)
+        {
+            if ($existingItem === $item) {
+                unset($this->items[$index]);
+                break;
+            }
+        }
     }
 
     public function size(): int
     {
-        // TODO
+        return count($this->items);
     }
 }
