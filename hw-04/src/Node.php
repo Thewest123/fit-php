@@ -2,8 +2,8 @@
 
 class Node
 {
-    protected ?Node $left;
-    protected ?Node $right;
+    protected ?Node $left = null;
+    protected ?Node $right = null;
 
     public function __construct(protected int $value)
     {
