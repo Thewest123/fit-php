@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Iterator;
 
@@ -23,10 +23,7 @@ abstract class AbstractOrderIterator implements \Iterator
         // TODO: Implement next() method.
     }
 
-    /**
-     * @return bool|float|int|string|null
-     */
-    public function key()
+    public function key(): bool|int|float|string|null
     {
         // TODO: Implement key() method.
     }
