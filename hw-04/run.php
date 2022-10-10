@@ -50,7 +50,7 @@ echo PHP_EOL . "*> In-Order Iterator ..." . PHP_EOL;
 $inOrderOk = testTrees('in', static function ($n) {
     return new Iterator\InOrderIterator($n);
 });
-echo '=> ' . ($inOrderOk ? 'OK [2]' : 'FAILED') . PHP_EOL;
+echo '=> ' . ($inOrderOk ? 'OK [1]' : 'FAILED') . PHP_EOL;
 
 
 // Test pre- and post-order iterators
