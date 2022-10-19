@@ -2,8 +2,6 @@
 
 namespace Iterator;
 
-use Node;
-
 class PreOrderIterator extends AbstractOrderIterator
 {
     public function rewind(): void

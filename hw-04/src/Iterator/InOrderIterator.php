@@ -2,9 +2,6 @@
 
 namespace Iterator;
 
-use http\Exception\RuntimeException;
-use Node;
-
 class InOrderIterator extends AbstractOrderIterator
 {
     public function rewind(): void
