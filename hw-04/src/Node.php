@@ -1,6 +1,9 @@
 <?php declare(strict_types=1);
 
-class Node
+use Iterator\AbstractOrderIterator;
+use Iterator\InOrderIterator;
+
+class Node implements IteratorAggregate
 {
     protected ?Node $left = null;
     protected ?Node $right = null;
@@ -34,5 +37,10 @@ class Node
     {
         $this->right = $right;
         return $this;
+    }
+
+    public function getIterator(): AbstractOrderIterator
+    {
+        return new InOrderIterator($this);
     }
 }
