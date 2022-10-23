@@ -6,35 +6,32 @@ use Node;
 
 abstract class AbstractOrderIterator implements \Iterator
 {
-    // TODO: shared attributes?
+    protected Node $rootNode;
+    protected ?Node $currentNode;
+
+    protected \SplStack $stack;
 
     public function __construct(Node $root)
     {
-        // TODO: Implement constructor.
+        $this->rootNode = $root;
     }
 
     public function current(): ?Node
     {
-        // TODO: Implement current() method.
+        return $this->currentNode;
     }
 
-    public function next(): void
-    {
-        // TODO: Implement next() method.
-    }
+    public abstract function next(): void;
 
     public function key(): bool|int|float|string|null
     {
-        // TODO: Implement key() method.
+        return $this->current()->getValue();
     }
 
     public function valid(): bool
     {
-        // TODO: Implement valid() method.
+        return $this->current() !== null;
     }
 
-    public function rewind(): void
-    {
-        // TODO: Implement rewind() method.
-    }
+    public abstract function rewind(): void;
 }

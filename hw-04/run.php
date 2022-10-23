@@ -1,6 +1,20 @@
 <?php declare(strict_types=1);
 
 // TODO implement and register autoloader
+spl_autoload_register(function (string $className): void {
+
+    $path = explode("\\", $className);
+    $path_str = __DIR__ . DIRECTORY_SEPARATOR . "src";
+
+    foreach ($path as $subfolder)
+    {
+        $path_str .= DIRECTORY_SEPARATOR . $subfolder;
+    }
+
+    $path_str .= ".php";
+
+    require_once $path_str;
+});
 
 // Don't do anything with the following code, it is just for testing your solution.
 
