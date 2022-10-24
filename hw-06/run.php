@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 use App\Model\Account;
 use App\Model\Transaction;
@@ -6,14 +6,14 @@ use App\Model\Transaction;
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 'On');
 
-spl_autoload_register(function ($className) {
-    $fileName = strtr(__DIR__.'/src/'.str_replace('App\\', '', $className), ['\\' => '/']).'.php';
+spl_autoload_register(static function ($className) {
+    $fileName = strtr(__DIR__ . '/src/' . str_replace('App\\', '', $className), ['\\' => '/']) . '.php';
     if (file_exists($fileName)) {
         require $fileName;
     }
 });
 
-function init()
+function init(): void
 {
     Transaction::dropTable();
     Transaction::createTable();
@@ -21,7 +21,7 @@ function init()
     Account::createTable();
 }
 
-function import(string $filename)
+function import(string $filename): void
 {
     $data = explode(PHP_EOL, file_get_contents($filename));
     foreach ($data as $row) {
@@ -31,12 +31,12 @@ function import(string $filename)
         }
         $from = Account::findOrCreate($col[0], $col[1]);
         $to = Account::findOrCreate($col[2], $col[3]);
-        $transaction = new Transaction($from, $to, $col[4]);
+        $transaction = new Transaction($from, $to, (float)$col[4]);
         $transaction->insert();
     }
 }
 
-function summary(string $number, string $code)
+function summary(string $number, string $code): void
 {
     $account = Account::find($number, $code);
     /** @var Transaction $transaction */
