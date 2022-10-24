@@ -30,7 +30,7 @@ class Transaction
     /**
      * Drops DB table using DROP TABLE ...
      */
-    public static function dropTable()
+    public static function dropTable(): void
     {
         // TODO implement
     }
