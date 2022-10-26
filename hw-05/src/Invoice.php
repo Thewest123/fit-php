@@ -65,6 +65,12 @@ class Invoice
 
     public function getTotalPrice(): float|int
     {
-        // TODO implement
+        $sum = 0;
+        foreach ($this->getItems() as $item)
+        {
+            $sum += $item->getTotalPrice();
+        }
+
+        return $sum;
     }
 }

@@ -45,6 +45,6 @@ class Item
 
     public function getTotalPrice(): float|int
     {
-        // TODO implement calculation
+        return $this->getUnitPrice() * $this->getQuantity();
     }
 }
