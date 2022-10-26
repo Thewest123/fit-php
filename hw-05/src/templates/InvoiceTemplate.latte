@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <!-- <link
+      rel="stylesheet"
+      href="./src/templates/InvoiceTemplate.css"
+      media="all"
+    /> -->
+    <style>
+      @page {
+        margin: 70px;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        padding-left: 20px;
+      }
+
+      .title h1 {
+        font-size: small;
+        text-transform: uppercase;
+        font-weight: normal;
+        width: 100%;
+      }
+
+      .address table {
+        border: 1px solid black !important;
+      }
+
+      .address table,
+      .address th,
+      .address td {
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        border-collapse: collapse;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: left;
+      }
+
+      .address table {
+        width: 100%;
+        margin-bottom: 1em;
+      }
+
+      .items table,
+      .items th,
+      .items td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .items table {
+        width: 100%;
+      }
+
+      .items .sum {
+        font-weight: bold;
+      }
+
+      table .right {
+        text-align: right;
+      }
+
+      table .left {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="title">
+      <h1>Faktura - doklad c. {$invoice->getNumber()}</h1>
+    </div>
+
+    <div class="address">
+      <table>
+        <tr>
+          <th>Dodavatel</th>
+          <th>Odberatel</th>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>{$invoice->getSupplier()->getName()}</td>
+          <td>{$invoice->getCustomer()->getName()}</td>
+        </tr>
+        <tr>
+          <td>
+            {$invoice->getSupplier()->getAddress()->getStreet()}
+            {$invoice->getSupplier()->getAddress()->getNumber()}
+          </td>
+          <td>
+            {$invoice->getCustomer()->getAddress()->getStreet()}
+            {$invoice->getCustomer()->getAddress()->getNumber()}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {$invoice->getSupplier()->getAddress()->getZipCode()}
+            {$invoice->getSupplier()->getAddress()->getCity()}
+          </td>
+          <td>
+            {$invoice->getCustomer()->getAddress()->getZipCode()}
+            {$invoice->getCustomer()->getAddress()->getCity()}
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>{$invoice->getSupplier()->getVatNumber()}</td>
+          <td>{$invoice->getCustomer()->getVatNumber()}</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>{$invoice->getSupplier()->getAddress()->getPhone()}</td>
+          <td>{$invoice->getCustomer()->getAddress()->getPhone()}</td>
+        </tr>
+        <tr>
+          <td>{$invoice->getSupplier()->getAddress()->getEmail()}</td>
+          <td>{$invoice->getCustomer()->getAddress()->getEmail()}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="items">
+      <table>
+        <tr>
+          <th class="left">Polozka</th>
+          <th class="left">Pocet m.j</th>
+          <th class="left">Cena za m.j.</th>
+          <th class="left">Celkem</th>
+        </tr>
+        {foreach $invoice->getItems() as $item}
+        <tr>
+          <td>{$item->getDescription()}</td>
+          <td class="right">{str_replace('.', ',', $item->getQuantity())}</td>
+          <td class="right">{number_format($item->getUnitPrice(), 2, ',', ' ')}</td>
+          <td class="right">{number_format($item->getTotalPrice(), 2, ',', ' ')}</td>
+        </tr>
+        {/foreach}
+        <tr class="sum">
+          <td colspan="3">Celkem</td>
+          <td class="right">{number_format($invoice->getTotalPrice(), 2, ',', ' ')}</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
