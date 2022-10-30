@@ -3,11 +3,21 @@
 namespace App;
 
 use Dompdf\Dompdf;
+use Latte;
 
 class Renderer extends Dompdf
 {
     public function makeInvoice(Invoice $invoice): string
     {
-        // TODO implement
+        $latte = new Latte\Engine;
+        $params = [ "invoice" => $invoice ];        
+        $html = $latte->renderToString('./src/templates/InvoiceTemplate.latte', $params);
+
+        $dompdf = new DOMPDF();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        
+        return $dompdf->output();
     }
 }
