@@ -6,9 +6,9 @@ class LinkedListItem
 {
     protected string $value;
 
-    protected ?LinkedListItem $next;
+    protected ?LinkedListItem $next = null;
 
-    protected ?LinkedListItem $prev;
+    protected ?LinkedListItem $prev = null;
 
     /**
      * LinkedListItem constructor.
