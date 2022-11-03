@@ -31,13 +31,20 @@ class LinkedList
     }
 
     /**
-     * Place new item at the begining of the list
+     * Place new item at the beginning of the list
      */
     public function prependList(string $value): LinkedListItem
     {
         $item = new LinkedListItem($value);
         $second = $this->getFirst();
         $this->setFirst($item);
+
+        // Check if list was empty, we can't setPrev() on null
+        if ($second === null)
+        {
+            return $item;
+        }
+
         $item->setNext($second);
         $second->setPrev($item);
 
@@ -50,8 +57,15 @@ class LinkedList
     public function appendList(string $value): LinkedListItem
     {
         $item = new LinkedListItem($value);
-        $this->setLast($item);
         $penultimate = $this->getLast();
+        $this->setLast($item);
+
+        // Check if list was empty, we can't setNext() on null
+        if ($penultimate === null)
+        {
+            return $item;
+        }
+
         $penultimate->setNext($item);
         $item->setPrev($penultimate);
 
@@ -66,8 +80,8 @@ class LinkedList
         $item = new LinkedListItem($value);
         $item->setNext($nextItem);
         $item->setPrev($nextItem->getPrev());
-        $nextItem->setPrev($item);
-        $nextItem->getPrev()->setNext($item);
+        $nextItem->getPrev()?->setNext($item); //swap
+        $nextItem->setPrev($item); //swap
 
         return $item;
     }
@@ -79,9 +93,9 @@ class LinkedList
     {
         $item = new LinkedListItem($value);
         $item->setPrev($prevItem);
-        $prevItem->setNext($item);
-        $item->setNext($prevItem->getNext());
-        $prevItem->getNext()->setPrev($item);
+        $item->setNext($prevItem->getNext()); //swap
+        $prevItem->setNext($item); //swap
+        $item->getNext()?->setPrev($item); //$item->getNext
 
         return $item;
     }
