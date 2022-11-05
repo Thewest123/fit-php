@@ -23,7 +23,12 @@ class Transaction
     {
         $db = Db::get();
         $db->query('CREATE TABLE IF NOT EXISTS `transaction` (
-            -- TODO implement
+            id INTEGER PRIMARY KEY,
+            account_from INTEGER NOT NULL,
+            account_to INTEGER NOT NULL,
+            amount REAL NOT NULL,
+            FOREIGN KEY (account_from) REFERENCES account (id),
+            FOREIGN KEY (account_to) REFERENCES account (id)
         )');
     }
 
@@ -32,7 +37,8 @@ class Transaction
      */
     public static function dropTable(): void
     {
-        // TODO implement
+        $db = Db::get();
+        $db->query('DROP TABLE IF EXISTS `transaction`');
     }
 
     /**
@@ -42,7 +48,17 @@ class Transaction
      */
     public function insert(): int
     {
-        // TODO implement
+        $db = Db::get();
+        $query = 'INSERT INTO `transaction` (account_from, account_to, amount) VALUES (:acc_from, :acc_to, :amount)';
+        $state = $db->prepare($query);
+
+        $state->execute([
+            "acc_from" => $this->getFrom()->getId(),
+            "acc_to" => $this->getTo()->getId(),
+            "amount" => $this->getAmount(),
+        ]);
+
+        return intval($db->lastInsertId("transaction"));
     }
 
     public function getId(): int

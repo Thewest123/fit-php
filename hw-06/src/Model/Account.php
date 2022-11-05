@@ -21,7 +21,9 @@ class Account
     {
         $db = Db::get();
         $db->query('CREATE TABLE IF NOT EXISTS `account` (
-            -- TODO implement
+            id INTEGER PRIMARY KEY,
+            num TEXT,
+            code TEXT
         )');
     }
 
@@ -30,7 +32,8 @@ class Account
      */
     public static function dropTable(): void
     {
-        // TODO implement
+        $db = Db::get();
+        $db->query('DROP TABLE IF EXISTS `account`');
     }
 
     /**
@@ -38,7 +41,28 @@ class Account
      */
     public static function find(string $number, string $code): ?self
     {
-        // TODO implement
+        $db = Db::get();
+
+        // Build query
+        $query = 'SELECT id FROM `account` WHERE num = :num AND code = :code';
+        $state = $db->prepare($query);
+
+        // Validate and execute
+        if (!$state) return null;
+
+        if (!$state->execute([
+            "num" => $number,
+            "code" => $code,
+            ])) return null;
+
+        // Fetch result
+        $result = $state->fetch();
+
+        // Check result
+        if (empty($result)) return null;
+
+        // Return new instance of Account
+        return new Account(intval($result["id"]), $number, $code);
     }
 
     /**
@@ -46,7 +70,24 @@ class Account
      */
     public static function findById(int $id): ?self
     {
-        // TODO implement
+        $db = Db::get();
+
+        // Build query
+        $query = 'SELECT id, num, code FROM `account` WHERE id = :id';
+        $state = $db->prepare($query);
+
+        // Validate and execute
+        if (!$state) return null;
+        if (!$state->execute(["id" => $id])) return null;
+
+        // Fetch result
+        $result = $state->fetch();
+
+        // Check result
+        if (empty($result)) return null;
+
+        // Return new instance of Account
+        return new Account(intval($result["id"]), $result["num"], $result["code"]);
     }
 
     /**
@@ -54,7 +95,24 @@ class Account
      */
     public static function findOrCreate(string $number, string $code): self
     {
-        // TODO implement
+        // Check existing
+        $existing = self::find($number, $code);
+        if ($existing !== null) return $existing;
+
+        // Create new
+        $db = Db::get();
+        $query = 'INSERT INTO `account` (num, code) VALUES (:num, :code)';
+        $state = $db->prepare($query);
+
+        $state->execute([
+            "num" => $number,
+            "code" => $code
+        ]);
+
+        $id = intval($db->lastInsertId("account"));
+
+        // Return new instance
+        return new Account($id, $number, $code);
     }
 
     /**
@@ -64,7 +122,28 @@ class Account
      */
     public function getTransactions(): iterable
     {
-        // TODO implement
+        $db = Db::get();
+
+        // Build query
+        $query = 'SELECT * FROM `transaction` WHERE account_from = :id OR account_to = :id';
+        $state = $db->prepare($query);
+
+        // Validate and execute
+        if (!$state) return null;
+        if (!$state->execute(["id" => $this->getId()])) return null;
+
+        // Fetch result
+        $result = $state->fetchAll();
+        $transactions = [];
+
+        foreach ($result as $item)
+        {
+            $from = Account::findById($item["account_from"]);
+            $to = Account::findById($item["account_to"]);
+            $transactions[] = new Transaction($from, $to, floatval($item["amount"]));
+        }
+
+        return $transactions;
     }
 
     /**
@@ -72,7 +151,34 @@ class Account
      */
     public function getTransactionSum(): float
     {
-        // TODO implement
+        $db = Db::get();
+
+        // --- OUTGOING ---
+        // Build query
+        $query = 'SELECT SUM(amount) FROM `transaction` WHERE account_from == :acc_from;';
+        $state = $db->prepare($query);
+
+        // Validate and execute
+        if (!$state) return 0.0;
+        if (!$state->execute(["acc_from" => $this->getId()])) return 0.0;
+
+        // Fetch result
+        $outgoingSum = floatval($state->fetch()[0]);
+
+        // --- INCOMING ---
+        // Build query
+        $query = 'SELECT SUM(amount) FROM `transaction` WHERE account_to == :acc_to;';
+        $state = $db->prepare($query);
+
+        // Validate and execute
+        if (!$state) return 0.0;
+        if (!$state->execute(["acc_to" => $this->getId()])) return 0.0;
+
+        // Fetch result
+        $incomingSum = floatval($state->fetch()[0]);
+
+        // Return
+        return $incomingSum - $outgoingSum;
     }
 
     public function getId(): int
