@@ -11,16 +11,23 @@ Zvolte si persistentní úložitě, které chcete použít (např. Sqlite, nebo 
 - `isbn`
 - `pages`
 
-Prohlížení existujících záznamů může dělat kdokoliv. Operace, které záznamy upravují mohou dělat pouze autorizovaní uživatelé, kdy ověření probíhá pomocí HTTP Basic Auth. Pro účely tohoto úkolu stačí "zahardcodovat" uživatele `admin` s heslem `pas$word`.
+Prohlížení existujících záznamů může dělat kdokoliv. Operace, které záznamy upravují mohou dělat pouze autorizovaní uživatelé,
+kdy ověření probíhá pomocí HTTP Basic Auth. Pro účely tohoto úkolu stačí "zahardcodovat" uživatele `admin` s heslem `pas$word`.
 
 Máte připravenou kostru aplikace v `public/index.php`.
-Není potřeba implementovat vše v jednom scriptu, máte nastavený namespace `Books` do složky `src`, vytvořte si další třídy, které budete potřebovat, aby byl kód přehledný.
+
+Není potřeba implementovat vše v jednom scriptu, máte nastavený namespace `Books` do složky `src`,
+vytvořte si další třídy, které budete potřebovat, aby byl kód přehledný.
 
 ## Spuštění
 
-Používáte-li [předpřipravený docker](https://gitlab.fit.cvut.cz/BI-PHP/bi-php-docker), aktualizujte si jej prosím na nejnovější verzi (stačí git pull a restart kontejnerů). V něm je připravena example aplikace. Abyste na její místo dali HW-08, upravte buďto cesty v konfiguraci (viz [Návod na konci README](https://gitlab.fit.cvut.cz/BI-PHP/bi-php-docker#kde-se-mohu-pod%C3%ADvat-na-uk%C3%A1zkovou-aplikaci)), nebo zdrojáky HW08 vložte přímo do `/src/` dockeru
+Používáte-li [předpřipravený docker](https://gitlab.fit.cvut.cz/BI-PHP/bi-php-docker), máte v něm připraven example aplikace.
+Abyste na její místo dali HW-08, upravte buďto cesty v konfiguraci (viz
+[Návod na konci README](https://gitlab.fit.cvut.cz/BI-PHP/bi-php-docker#kde-se-mohu-pod%C3%ADvat-na-uk%C3%A1zkovou-aplikaci)),
+nebo zdrojáky HW08 vložte přímo do `/src/` dockeru.
 
-Pokud nepoužíváte Docker, můžete aplikaci spustit pomocí PHP build-in serveru: `$ php -S localhost:8080 -t public public/index.php`.
+Pokud nepoužíváte Docker, můžete aplikaci spustit pomocí PHP build-in serveru: `$ php -S localhost:8080 -t public public/index.php`,
+nebo libovolného vlastního webserveru.
 
 ---
 
@@ -51,7 +58,7 @@ Vrátí seznam uložených knih. V případě, že žádné knihy uložené nejs
 
 ---
 
-## Detail knihy (1 bod)
+## Detail knihy (0.5 bod)
 
 **Request**
 
@@ -140,7 +147,7 @@ Pokud request neobsahuje všechny informace o knize, vrátí server HTTP chybu 4
 
 ---
 
-## Aktualizace existující knihy 🔐 (2 bodu)
+## Aktualizace existující knihy 🔐 (1.5 bodu)
 
 **Request**
 
