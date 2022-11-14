@@ -1,7 +1,7 @@
 # Úkol 9: Web scraping
 
 Vaším úkolem je vytvořit scraper produktů z e-shopů. Vyberte si alespoň dva e-shopy, pro které budete zjišťovat informace o produktech.
-- Vstupem bude výraz např. `beats studio 3`, podle kterého necháte e-shopem vyhledat produkty.
+- Vstupem bude výraz např. `beats studio3`, podle kterého necháte e-shopem vyhledat produkty.
 - Pro každý produkt zjistěte: 
   - název,
   - cenu,

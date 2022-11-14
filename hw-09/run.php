@@ -1,11 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
 use Goutte\Client;
 use Symfony\Component\DomCrawler\Crawler;
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-function text(Crawler $crawler, string $selector)
+/**
+ * @param Crawler $crawler
+ * @param string $selector
+ * @return string|null
+ */
+function text(Crawler $crawler, string $selector): ?string
 {
     $new = $crawler->filter($selector);
     if (count($new)) {
@@ -16,10 +21,10 @@ function text(Crawler $crawler, string $selector)
 }
 
 /**
- * @param string $query - query string e.g. 'Beats Studio 3'
+ * @param string $query - query string e.g. 'Beats Studio3'
  * @return array
  */
-function scrape(string $query)
+function scrape(string $query): array
 {
     $results = [];
 
@@ -29,27 +34,28 @@ function scrape(string $query)
 }
 
 /**
- * @param string $query   - query string e.g. 'Beats Studio 3'
- * @param array  $results - input product collection
+ * @param string $query - query string e.g. 'Beats Studio 3'
+ * @param array $results - input product collection
  * @return array
  */
-function filter(string $query, array $results)
+function filter(string $query, array $results): array
 {
     // TODO implement irrelevant products filtering out
     return $results;
 }
 
 /**
+ * @param array $results
+ * @param bool $includeDescription
+ * @return void
  * input array $results show contain following keys
  * - 'name'
  * - 'price'
  * - 'link' - link to product detail page
  * - 'eshop' - eshop identifier e.g. 'alza'
  * - 'description'
- *
- * @param array $results
  */
-function printResults(array $results, bool $includeDescription = false)
+function printResults(array $results, bool $includeDescription = false): void
 {
     $width = [
         'name' => 0,
@@ -63,33 +69,33 @@ function printResults(array $results, bool $includeDescription = false)
             $width[$key] = max(mb_strlen($value), $width[$key]);
         }
     }
-    echo '+'.str_repeat('-', 2 + $width['name']);
-    echo '+'.str_repeat('-', 2 + $width['price']);
-    echo '+'.str_repeat('-', 2 + $width['link']);
-    echo '+'.str_repeat('-', 2 + $width['eshop'])."+\n";
+    echo '+' . str_repeat('-', 2 + $width['name']);
+    echo '+' . str_repeat('-', 2 + $width['price']);
+    echo '+' . str_repeat('-', 2 + $width['link']);
+    echo '+' . str_repeat('-', 2 + $width['eshop']) . "+" . PHP_EOL;
     foreach ($results as $result) {
 
-        echo '| '.$result['name'].str_repeat(' ', $width['name'] - mb_strlen($result['name'])).' ';
-        echo '| '.$result['price'].str_repeat(' ', $width['price'] - mb_strlen($result['price'])).' ';
-        echo '| '.$result['link'].str_repeat(' ', $width['link'] - mb_strlen($result['link'])).' ';
-        echo '| '.$result['eshop'].str_repeat(' ', $width['eshop'] - mb_strlen($result['eshop'])).' ';
-        echo "|\n";
-        echo '+'.str_repeat('-', 2 + $width['name']);
-        echo '+'.str_repeat('-', 2 + $width['price']);
-        echo '+'.str_repeat('-', 2 + $width['link']);
-        echo '+'.str_repeat('-', 2 + $width['eshop'])."+\n";
+        echo '| ' . $result['name'] . str_repeat(' ', $width['name'] - mb_strlen($result['name'])) . ' ';
+        echo '| ' . $result['price'] . str_repeat(' ', $width['price'] - mb_strlen($result['price'])) . ' ';
+        echo '| ' . $result['link'] . str_repeat(' ', $width['link'] - mb_strlen($result['link'])) . ' ';
+        echo '| ' . $result['eshop'] . str_repeat(' ', $width['eshop'] - mb_strlen($result['eshop'])) . ' ';
+        echo "|" . PHP_EOL;
+        echo '+' . str_repeat('-', 2 + $width['name']);
+        echo '+' . str_repeat('-', 2 + $width['price']);
+        echo '+' . str_repeat('-', 2 + $width['link']);
+        echo '+' . str_repeat('-', 2 + $width['eshop']) . "+" . PHP_EOL;
         if ($includeDescription) {
-            echo '| '.$result['description'].str_repeat(' ',
+            echo '| ' . $result['description'] . str_repeat(' ',
                     max(0, 7 + $width['name'] + $width['price'] + $width['link'] - mb_strlen($result['description'])));
-            echo "|\n";
-            echo str_repeat('-', 10 + $width['name'] + $width['price'] + $width['link'])."\n";
+            echo "|" . PHP_EOL;
+            echo str_repeat('-', 10 + $width['name'] + $width['price'] + $width['link']) . PHP_EOL;
         }
     }
 }
 
 // MAIN
 if (count($argv) !== 2) {
-    echo "Usage: php run.php <query>\n";
+    echo "Usage: php run.php <query>" . PHP_EOL;
     exit(1);
 }
 
