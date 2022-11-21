@@ -1,6 +1,6 @@
 # Úkol 10
 
-Vytvořte command line skript, který bude vykreslovat hvězdy podle zadaných parametrů.
+Vytvořte **přímo spustitelný** command line skript, který bude vykreslovat hvězdy podle zadaných parametrů.
 
 
 ```

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Star;
 
@@ -10,12 +10,12 @@ class StarCommand extends Command
 {
     protected static $defaultName = 'star';
 
-    protected function configure()
+    protected function configure(): void
     {
         // TODO
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // TODO
         $output->writeln('This is not yet implemented.');
