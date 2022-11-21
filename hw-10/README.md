@@ -7,6 +7,13 @@ Vytvořte **přímo spustitelný** command line skript, který bude vykreslovat 
 $ ./star <width> <color> <points> <radius> <output>
 ```
 
+Example:
+```
+./star 480 16727100 6 0.8 example-star.png 4342338 10526880 7
+```
+
+![](docs/example-star.png)
+
 **Povinné parametry**
 
 - `width` - výška a šířka výsledného obrázku
