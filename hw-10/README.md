@@ -30,11 +30,13 @@ Example:
 
 **Poznámky**
 
-- Výstup je ve formátu PNG, pokud název souboru, kam se má obrázek uložit končí `.png`, není potřeba ho měnit, v opačném případě je potřeba `.png` na konec přidat
-- Barvy jsou zadané jako RGB int, pro převod můžete použít např. [RGB Int Calculator](http://www.shodor.org/~efarrow/trunk/html/rgbint.html)
-- Zajistěte, aby všechny parametry měly dokumentaci a zobrazily se v nápovědě (`./star --help`)
-- Při vykreslování berte v potaz i šířku rámečku a přizpůsobte velikost hvězdy tak, aby se do zadané šířky a výšky vešla včetně rámečku
-- Hvězdu do obrázku umístěte tak, aby její střed byl uprostřed obrázku a jeden cíp začínal vždy nahoře uprostřed (tzn. pro lichý počet cípů nebudou ostatní cípy až ke kraji obrázku)
+- Výstup je ve formátu PNG, pokud název souboru, kam se má obrázek uložit končí `.png`, není potřeba ho měnit, v opačném případě je potřeba `.png` na konec přidat.
+- Barvy jsou zadané jako RGB int, pro převod můžete použít např. [RGB Int Calculator](http://www.shodor.org/~efarrow/trunk/html/rgbint.html).
+- Zajistěte, aby všechny parametry měly dokumentaci a zobrazily se v nápovědě (`./star --help`).
+- Při vykreslování berte v potaz i šířku rámečku a přizpůsobte velikost hvězdy tak, aby se do zadané šířky a výšky vešla včetně rámečku.
+- Hvězdu do obrázku umístěte tak, aby její střed byl uprostřed obrázku a jeden cíp začínal vždy nahoře uprostřed (tzn. pro lichý počet cípů nebudou ostatní cípy až ke kraji obrázku).
+- Není nutné validovat hodnoty vstupních argumentů (nebude žádný "test mezních hodnot").
+- Chcete-li namísto gd použít [jinou grafickou knihovnu](https://www.php.net/manual/en/refs.utilspec.image.php), můžete (může být vyžadována další konfigurace).
 
 
 ![](docs/stars.png)
