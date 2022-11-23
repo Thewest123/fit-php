@@ -5,6 +5,15 @@ use Symfony\Component\DomCrawler\Crawler;
 
 require __DIR__ . '/vendor/autoload.php';
 
+const ALZA_BASE = "https://www.alza.cz";
+const ALZA_PREFIX = "/search.htm?exps=";
+
+const CZC_BASE = "https://www.czc.cz/";
+const CZC_SUFFIX = "/hledat";
+
+const DELAY = 1; // seconds
+const PRODUCT_LIMIT = 3; // how many products to scrape from search
+
 /**
  * @param Crawler $crawler
  * @param string $selector
@@ -28,7 +37,82 @@ function scrape(string $query): array
 {
     $results = [];
 
-    // TODO implement scraping from at least two e-shops
+    // Init client
+    $client = new Client();
+
+    // -------------------------------- Alza.cz --------------------------------
+    // Get crawler of current page
+    $crawler = $client->request('GET', ALZA_BASE . ALZA_PREFIX . $query);
+
+    // Get items
+    $i = 0;
+    $crawler->filter("#boxes > .box.browsingitem")->each(
+        function (Crawler $node) use (&$results, &$client, &$i)
+        {
+            $i++;
+            if ($i > 3)
+                return;
+
+            $name = $node->filter("a.name")->text();
+            $price = $node->filter(".price span.price-box__price")->text();
+            $link = ALZA_BASE . $node->filter("a.name")->attr("href");
+            $eshop = "Alza.cz";
+
+            $descCrawler = $client->request('GET', $link);
+            $description = $descCrawler->filter("#detailItem #detailText span")->text();
+
+            $results[] = [
+                "name" => $name,
+                "price" => $price,
+                "link" => $link,
+                "eshop" => $eshop,
+                "description" => $description
+            ];
+
+            print("Scraped item {$i} on Alza.cz: " . $name . PHP_EOL);
+
+
+            sleep(1);
+        }
+    );
+
+    // ---------------------------------- CZC ----------------------------------
+    // Get crawler of current page
+    $crawler = $client->request('GET', CZC_BASE . $query . CZC_SUFFIX);
+
+    // Get items
+    $i = 0;
+    $crawler->filter("#tiles > .new-tile")->each(
+        function (Crawler $node) use (&$results, &$client, &$i)
+        {
+            $i++;
+            if ($i > 3)
+                return;
+
+            $name = $node->filter(".tile-title a")->text();
+            $price = $node->filter(".total-price span.price > span.price-vatin")->text();
+            $link = CZC_BASE . $node->filter(".tile-title a")->attr("href");
+            $eshop = "CZC";
+
+            $descCrawler = $client->request('GET', $link);
+            $description = $descCrawler->filter(".pd-info p.pd-shortdesc")->text();
+
+            // Remove "Další informace" link at the end of the description
+            $description = str_replace("Další informace", "", $description);
+
+            $results[] = [
+                "name" => $name,
+                "price" => $price,
+                "link" => $link,
+                "eshop" => $eshop,
+                "description" => $description
+            ];
+
+            print("Scraped item {$i} on CZC: " . $name . PHP_EOL);
+
+            sleep(1);
+        }
+    );
 
     return $results;
 }
@@ -40,8 +124,30 @@ function scrape(string $query): array
  */
 function filter(string $query, array $results): array
 {
-    // TODO implement irrelevant products filtering out
-    return $results;
+    // Filter bad results
+    $filtered = array_filter($results,
+        function($item) use (&$query)
+        {
+            if (stripos($item["name"], $query) === FALSE && stripos($item["description"], $query) === FALSE)
+                return false;
+
+            return true;
+        }
+    );
+
+    // Sort by price descending
+    usort($filtered,
+        function($a, $b)
+        {
+            // Remove non numbers
+            $priceA = intval(preg_replace('/[^0-9]/', '', $a["price"]));
+            $priceB = intval(preg_replace('/[^0-9]/', '', $b["price"]));
+
+            return $priceA < $priceB;
+        }
+    );
+
+    return $filtered;
 }
 
 /**
