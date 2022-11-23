@@ -8,7 +8,8 @@ require __DIR__ . '/vendor/autoload.php';
 const ALZA_BASE = "https://www.alza.cz";
 const ALZA_PREFIX = "/search.htm?exps=";
 
-const CZC_BASE = "https://www.czc.cz/";
+const CZC_BASE = "https://www.czc.cz";
+const CZC_PREFIX = "/";
 const CZC_SUFFIX = "/hledat";
 
 const DELAY = 1; // seconds
@@ -78,7 +79,7 @@ function scrape(string $query): array
 
     // ---------------------------------- CZC ----------------------------------
     // Get crawler of current page
-    $crawler = $client->request('GET', CZC_BASE . $query . CZC_SUFFIX);
+    $crawler = $client->request('GET', CZC_BASE . CZC_PREFIX . $query . CZC_SUFFIX);
 
     // Get items
     $i = 0;
@@ -135,7 +136,7 @@ function filter(string $query, array $results): array
         }
     );
 
-    // Sort by price descending
+    // Sort by price ascending
     usort($filtered,
         function($a, $b)
         {
@@ -143,7 +144,7 @@ function filter(string $query, array $results): array
             $priceA = intval(preg_replace('/[^0-9]/', '', $a["price"]));
             $priceB = intval(preg_replace('/[^0-9]/', '', $b["price"]));
 
-            return $priceA < $priceB;
+            return $priceA > $priceB;
         }
     );
 
