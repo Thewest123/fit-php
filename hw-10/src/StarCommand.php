@@ -31,8 +31,7 @@ class StarCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // TODO
-        $output->writeln('This is not yet implemented.');
+        $output->writeln('Star generated! :)');
 
         $size = intval($input->getArgument("width"));
         $starColor = intval($input->getArgument("color"));
